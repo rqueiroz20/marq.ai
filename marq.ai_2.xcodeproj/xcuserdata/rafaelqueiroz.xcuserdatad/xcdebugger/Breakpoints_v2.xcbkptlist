@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "2B7AD4A2-42F0-47D3-9733-EE6021CA4D55"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F02D569-AC0D-4D94-AC62-F7B997894E67"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "marq.ai_2/marq_ai_2App.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "marq_ai_2App"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "9F02D569-AC0D-4D94-AC62-F7B997894E67 - 160fef0aba116a07"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "marq_ai_2.marq_ai_2App.init() -&gt; marq_ai_2.marq_ai_2App"
+                  moduleName = "marq.ai_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rafaelqueiroz/CS234/marq.ai_2/marq.ai_2/marq_ai_2App.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "9F02D569-AC0D-4D94-AC62-F7B997894E67 - db87bcb73ef3ed61"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "marq.ai_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rafaelqueiroz/CS234/marq.ai_2/marq.ai_2/marq_ai_2App.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "8">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
