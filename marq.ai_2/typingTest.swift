@@ -26,6 +26,7 @@ struct SobrietyTest1: View {
     @State private var typedText = "" // Text typed by the user
     @State private var textIndex = 0 // Index of the currently displayed text
     @State private var numWords = 0 // Number of words in the displayed text
+    @State private var numChars = 0 // Number of characters in the displayed text
 
     @State private var isDone = false
 
@@ -38,6 +39,7 @@ struct SobrietyTest1: View {
     @State private var totalTypedCharacters = 0 // Total typed characters
     @State private var wpm: Double = 0.0 // Words per minute
     @State private var numCharsTyped = 0
+    @State private var accuracy = 0.0
 
     var body: some View {
         VStack {
@@ -63,40 +65,43 @@ struct SobrietyTest1: View {
                 .onChange(of: typedText) { newValue in
                     if let lastCharacter = newValue.last {
                         numCharsTyped += 1
-                        let typedIndex = newValue.index(before: newValue.endIndex)
-                        let typedCharacter = newValue[typedIndex]
-                        let displayedIndex = displayedText.index(displayedText.startIndex, offsetBy: totalTypedCharacters)
-                        let displayedCharacter = displayedText[displayedIndex]
-                        if typedCharacter == displayedCharacter {
-                            totalTypedCharacters += 1
-                        } else {
-                            totalTypedCharacters += 1
-                            characterErrorCount += 1
-                        }
-                        if lastCharacter == " " {
-                            let typedWords = typedText.split(separator: " ")
-                            let displayedWords = displayedText.split(separator: " ")
-                            if typedWords.count == displayedWords.count {
-                                for (index, word) in typedWords.enumerated() {
-                                    if word != displayedWords[index] {
-                                        wordErrorCount += 1
-                                    }
-                                }
-                            }
-                        }
+                        // let typedIndex = newValue.index(before: newValue.endIndex)
+                        // let typedCharacter = newValue[typedIndex]
+                        // let displayedIndex = displayedText.index(displayedText.startIndex, offsetBy: totalTypedCharacters)
+                        // let displayedCharacter = displayedText[displayedIndex]
+                        // if typedCharacter == displayedCharacter {
+                        //     totalTypedCharacters += 1
+                        // } else {
+                        //     totalTypedCharacters += 1
+                        //     characterErrorCount += 1
+                        // }
+                        // if lastCharacter == " " {
+                        //     let typedWords = typedText.split(separator: " ")
+                        //     let displayedWords = displayedText.split(separator: " ")
+                        //     if typedWords.count == displayedWords.count {
+                        //         for (index, word) in typedWords.enumerated() {
+                        //             if word != displayedWords[index] {
+                        //                 wordErrorCount += 1
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     }
                 }
             Text("Author: \(textAuthor)")
             Text("WPM: \(wpm, specifier: "%.1f")")
             Spacer()
             Button(action: {
+                    startTypingTest()
                     calculateMetricsFinal()
                     isDone = true
                     endTime = Date()
                     elapsedTime = endTime!.timeIntervalSince(startTime!)
                     wpm = Double(numWords) / (elapsedTime / 60.0)
+                    accuracy = (1 - (Double(numCharsTyped - numChars) / Double(numChars))) * 100
                     print("Elapsed time in seconds: \(elapsedTime)")
                     print("Words per minute: \(wpm)")
+                    print("Accuracy: \(accuracy)")
                 }) {
                     NavigationLink(destination: Results2View()) {
                         Text("Submit")
@@ -167,6 +172,7 @@ struct SobrietyTest1: View {
             textIndex = randomQuote.id
             textAuthor = randomQuote.quoteAuthor
             displayedText = randomQuote.quoteText
+            numChars = displayedText.count
         }
         
         // Reset timer
@@ -187,10 +193,10 @@ struct SobrietyTest1: View {
             let wordErrorRate = Double(wordErrorCount) / Double(words)
             let characterErrorRate = Double(characterErrorCount) / Double(totalTypedCharacters)
             
-            // Provide feedback to the user
-            print("WPM: \(wpm)")
-            print("Word Error Rate: \(wordErrorRate)")
-            print("Character Error Rate: \(characterErrorRate)")
+            // // Provide feedback to the user
+            // print("WPM: \(wpm)")
+            // print("Word Error Rate: \(wordErrorRate)")
+            // print("Character Error Rate: \(characterErrorRate)")
         }
     }
 }
