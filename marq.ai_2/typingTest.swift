@@ -15,7 +15,7 @@ struct Quote {
     let quoteAuthor: String
 }
 
-struct ContentView: View {
+struct SobrietyTest1: View {
     // Quotes array
     @State private var quotes = [Quote]() // Array to store texts from JSON
     @State private var grabbedQuote: Quote?
@@ -42,11 +42,20 @@ struct ContentView: View {
     var body: some View {
         VStack {
             // Display command in bold
-            Text("Please type the following text:")
-                .bold()
+            Text("Sobriety Test")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            Text("Type the following sentence while walking in a straight line:")
+                .font(.system(size: 20))
+                .foregroundColor(Color.blue)
                 .padding()
+                .multilineTextAlignment(.center)
             Text(quotes.isEmpty ? "Loading..." : displayedText)
-                            .padding()
+                .padding()
+                .bold()
+                .italic()
+                .font(.system(size: 20))
             // grab the last character and index of the typed text
             // and compares it to displayed text
             TextField("Type here", text: $typedText)
@@ -89,11 +98,13 @@ struct ContentView: View {
                     print("Elapsed time in seconds: \(elapsedTime)")
                     print("Words per minute: \(wpm)")
                 }) {
-                    Text("Submit")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    NavigationLink(destination: Results2View()) {
+                        Text("Submit")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
                 }
                 .padding()
 
@@ -105,6 +116,7 @@ struct ContentView: View {
             }
             startTypingTest()
         }
+        .navigationBarBackButtonHidden(true)
     }
 
     func findQuoteText(byId id: Int, inQuotes quotes: [Quote]) -> String? {
@@ -185,5 +197,5 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView()
+    SobrietyTest1()
 }

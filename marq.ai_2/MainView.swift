@@ -17,20 +17,22 @@ struct MainView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 Text("Welcome to MARQ.ai! If you are about to go out for an extended period of time, press the button below to ensure your safety.")
+                    .padding()
                     .font(.system(size: 20))
                     .italic()
                     .multilineTextAlignment(.center)
                 Spacer()
                 NavigationLink(destination: LandingPageView()) {
-                        Text("I'm Going Out!")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                            .padding()
-                    }
+                    Text("I'm Going Out!")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .padding()
+                }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

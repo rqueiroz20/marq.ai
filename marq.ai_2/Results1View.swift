@@ -29,13 +29,16 @@ struct Results1View: View {
                 .italic()
                 .font(.system(size: 20))
             
-            Text("Back to Main Menu")
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding()
+            NavigationLink(destination: MainView()) {
+                Text("Back to Main Menu")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .padding()
+            }
         }
+        .navigationBarBackButtonHidden(true)
 
     }
 }

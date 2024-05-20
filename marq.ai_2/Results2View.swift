@@ -23,13 +23,16 @@ struct Results2View: View {
                 .foregroundColor(Color.blue)
                 .padding()
             Spacer()
-            Text("Back to Main Menu")
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding()
+            
+            NavigationLink(destination: MainView()) {
+                Text("Back to Main Menu")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
         }
+        .navigationBarBackButtonHidden(true)
 
     }
 }
