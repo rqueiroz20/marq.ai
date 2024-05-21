@@ -19,6 +19,8 @@ struct SobrietyTest1: View {
     // Quotes array
     @State private var quotes = [Quote]() // Array to store texts from JSON
     @State private var grabbedQuote: Quote?
+    
+    @ObservedObject var viewmodel : CoreMotionViewModel = .shared
 
     // Text properties
     @State private var displayedText = "" // Currently displayed text
@@ -39,6 +41,7 @@ struct SobrietyTest1: View {
     @State private var totalTypedCharacters = 0 // Total typed characters
     @State private var wpm: Double = 0.0 // Words per minute
     @State private var numCharsTyped = 0
+    @State private var TypeError = 0
     @State private var accuracy = 0.0
 
     var body: some View {
@@ -53,6 +56,10 @@ struct SobrietyTest1: View {
                 .foregroundColor(Color.blue)
                 .padding()
                 .multilineTextAlignment(.center)
+            Image(systemName:"arrow.up")
+                .foregroundColor(viewmodel.Col)
+                .bold()
+                .font(.system(size: 50))
             Text(quotes.isEmpty ? "Loading..." : displayedText)
                 .padding()
                 .bold()
@@ -60,10 +67,14 @@ struct SobrietyTest1: View {
                 .font(.system(size: 20))
             // grab the last character and index of the typed text
             // and compares it to displayed text
+            
             TextField("Type here", text: $typedText)
                 .padding()
                 .onChange(of: typedText) { newValue in
                     if let lastCharacter = newValue.last {
+                        if typedText.firstIndex(of: lastCharacter) != grabbedQuote?.quoteText.firstIndex(of: lastCharacter) {
+                            TypeError+=1
+                        }
                         numCharsTyped += 1
                         // let typedIndex = newValue.index(before: newValue.endIndex)
                         // let typedCharacter = newValue[typedIndex]
@@ -92,7 +103,10 @@ struct SobrietyTest1: View {
             Text("WPM: \(wpm, specifier: "%.1f")")
             Spacer()
             Button(action: {
-                    startTypingTest()
+                    //startTypingTest()
+                //viewmodel.error = 0
+                //TypeError = 0
+                    //viewmodel.startUpdates()
                     calculateMetricsFinal()
                     isDone = true
                     endTime = Date()
@@ -102,14 +116,23 @@ struct SobrietyTest1: View {
                     print("Elapsed time in seconds: \(elapsedTime)")
                     print("Words per minute: \(wpm)")
                     print("Accuracy: \(accuracy)")
+                if isSober() {
+                  
+                }
+                else{
+                    returnDrunk()
+                }
+                
                 }) {
-                    NavigationLink(destination: Results2View()) {
+                    NavigationLink(destination:isSober() ? AnyView(Results1View()) : AnyView(Results2View()) ) {
                         Text("Submit")
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(8)
+                            .padding()
                     }
+                    
                 }
                 .padding()
 
@@ -120,8 +143,19 @@ struct SobrietyTest1: View {
                 self.quotes = quotes
             }
             startTypingTest()
+            viewmodel.error = 0
+            //TypeError = 0
+            viewmodel.startUpdates()
         }
         .navigationBarBackButtonHidden(true)
+    }
+    
+    func returnSober() -> some View{
+        Results1View()
+    }
+    
+    func returnDrunk() -> some View {
+       Results2View()
     }
 
     func findQuoteText(byId id: Int, inQuotes quotes: [Quote]) -> String? {
@@ -179,6 +213,20 @@ struct SobrietyTest1: View {
         startTime = Date()
     }
     
+    
+    func isSober() -> Bool{
+        print(viewmodel.Soberness)
+        print(TypeError)
+        if viewmodel.Soberness == "Drunk" || ( TypeError > 5){
+            return false
+    
+        }
+        else {return true}
+        
+        
+        
+    }
+    
     func calculateMetricsFinal() {
         if let startTime = startTime {
             let endTime = Date()
@@ -187,7 +235,7 @@ struct SobrietyTest1: View {
             
             // Calculate WPM
             let words = totalTypedCharacters / 5 // Assuming average word length of 5 characters
-            let wpm = Double(words) / minutes
+            wpm = Double(words) / minutes
             
             // Calculate error rates
             let wordErrorRate = Double(wordErrorCount) / Double(words)
