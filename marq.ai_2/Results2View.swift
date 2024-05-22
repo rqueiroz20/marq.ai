@@ -17,12 +17,18 @@ struct Results2View: View {
             Text("Results")
                 .font(.subheadline)
                 .fontWeight(.medium)
-            Text("Recommendation: Not Sober")
+            Text("Test Results: Not Sober")
                 .font(.title)
                 .fontWeight(.medium)
                 .foregroundColor(Color.blue)
                 .padding()
             Spacer()
+            
+            Text("The results of your test find that you are NOT in a sober state and are NOT capable of performing most activities that require undivided attention.")
+                .padding()
+                .multilineTextAlignment(.center)
+                .italic()
+                .font(.system(size: 20))
             
             NavigationLink(destination: MainView()) {
                 Text("Back to Main Menu")

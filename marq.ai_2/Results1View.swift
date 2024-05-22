@@ -17,14 +17,15 @@ struct Results1View: View {
             Text("Results")
                 .font(.subheadline)
                 .fontWeight(.medium)
-            Text("Recommendation: Sober")
+            Text("Test Results: Sober")
                 .font(.title)
                 .fontWeight(.medium)
                 .foregroundColor(Color.blue)
                 .padding()
             Spacer()
             
-            Text("The results of your test find that you are in a sober state and are capable of performing most activities that require undivided attention. Above are some points that you should consider before performing said activities.")
+            Text("The results of your test find that you are in a sober state and are capable of performing most activities that require undivided attention.")
+                .padding()
                 .multilineTextAlignment(.center)
                 .italic()
                 .font(.system(size: 20))
@@ -35,7 +36,6 @@ struct Results1View: View {
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
-                    .padding()
             }
         }
         .navigationBarBackButtonHidden(true)

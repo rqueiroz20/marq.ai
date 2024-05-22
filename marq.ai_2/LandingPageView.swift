@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct LandingPageView: View {
-    @State var countdownTimer = 7200
-    @State var timerRunning = true
-    @State var text = "< 2 hours"
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     var body: some View {
         VStack {
             Text("Enjoy!")
@@ -33,22 +28,6 @@ struct LandingPageView: View {
                     .cornerRadius(8)
                
             }
-            Text("Time to Unlock: \(text)")
-                .onReceive(timer) { _ in
-                    if countdownTimer > 0 && timerRunning {
-                        countdownTimer -= 1
-                        if countdownTimer < 3600 {
-                            text = "< 1 hour"
-                        } else if countdownTimer < 1800 {
-                            text = "< 30 minutes"
-                        } else if countdownTimer < 900 {
-                            text = "< 15 minutes"
-                        }
-                    } else {
-                        timerRunning = false
-                    }
-                }
-                .padding()
         }
     }
 
